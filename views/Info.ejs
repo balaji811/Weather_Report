@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather </title>
+    <style>
+        .grid{
+            display: grid;
+            grid-template-columns: 850px 850px;
+            grid-template-rows: 800px;
+        }
+
+        .Details{
+            background-image: url("https://images.pexels.com/photos/20363859/pexels-photo-20363859.jpeg");
+              background-size: cover;       
+          background-position: center;   
+        background-repeat: no-repeat; 
+        color: aqua;
+         
+        }
+
+        .name{
+            margin: 20px;
+        }
+
+        #weather{
+            display: flex;
+            gap: 10px;
+            align-items: flex-end;
+            top: 350px;
+            height: 400px;
+          
+        }
+
+        #temp{
+            font-size: 5rem;
+            margin-left: 20px;
+        }
+
+        .desc{
+            font-size: 3rem;
+        }
+
+        .info{
+            margin: 50px;
+        }
+         
+        .blocks{
+          display: flex;
+          gap: 100px;
+          margin: 10px;
+          
+        }
+
+        .inc{
+          background-color: rgb(102, 102, 106);
+          height: 80px;
+          width: 150px;
+          border-radius: 15px;
+          padding: 15px;
+          
+        }
+        
+         .inc:hover{
+            transform: scale(1.04);
+        }
+
+
+        h3{
+          margin: 0px;
+        }
+        
+
+        .sec{
+            padding: 0px 0px 0px 50px;
+            background-color:  rgb(59, 59, 68);
+            color: aqua;
+        }
+
+       
+
+       .box{
+         margin: 2px;
+        width: 500px;
+        
+        padding: 10px;
+        border-radius: 15px;
+        background-color: rgb(104, 104, 119) ;
+       
+        }
+
+        .box:hover{
+            transform: scale(1.04);
+        }
+
+        
+
+        .tempdeti{
+            padding-left: 50px;
+        }
+
+        hr{
+          color: aqua;
+          
+        }
+    </style>
+</head>
+<body>
+  
+       <div class="grid">
+    <div class="Details">
+         <h1 class="name"><%= data.name %></h1>
+
+         <div id="weather">
+          <h2  class="des"><span id="temp"><%=data.main.temp  %>° </span> - <%=data.weather[0].main %>  ☁️</h2>
+         </div>
+
+          
+
+
+         <h2  class="info" ><%=data.weather[0].description %></h2>
+
+         <div class="blocks">
+         <div  class="inc">
+          <h3>💧</h3>
+          <h3>Humidity</h3>
+           <h3><%= data.main.humidity %>%</h3>
+          
+        </div>
+         <div class="inc">
+          <h3>༄</h3>
+          <h3>Wind</h3>
+           <h3> <%=data.wind.speed %>m/s</h3>
+          
+        </div>
+         <div class="inc">
+         <h3>🌡</h3>
+          <h3>Feels like</h3>
+           <h3> <%=data.main.feels_like %>°</h3>
+        </div>
+         </div>
+      
+        
+
+
+
+
+
+
+
+    </div>
+       <div class="sec">
+       
+            <h1>Coordinates</h1>
+          <div  class="box">
+            <p class="we" >                                                  <%=data.weather[0].main %></p>  
+            <pre>Longitude:                                                  <%= data.coord.lon %>°</pre>
+           
+            <pre>Latitide :                                                  <%= data.coord.lat %>°</pre>
+          </div>
+
+
+        <h1>Details</h1>
+          <div class="box">
+            <pre>Temp_min:                                                    <%= data.main.temp_min %>° </pre>
+            
+            <pre>Temp_Max:                                                    <%= data.main.temp_max %>° </pre>
+            
+            <pre>Pressure:                                                    <%= data.main.pressure %>hPa</pre>
+          </div>
+       
+         <h2>Wind</h2> 
+           <div class="box">
+            <pre class="winddet">Deg  :                                                       <%=data.wind.deg %></pre>
+            
+            <pre class="winddet">Gust :                                                       <%=data.wind.gust%></pre>
+           </div>
+
+           <% 
+  // Convert sunrise
+  const sunriseDate = new Date(data.sys.sunrise * 1000); // JS uses milliseconds
+  const sunriseHours = sunriseDate.getHours().toString().padStart(2, '0');
+  const sunriseMinutes = sunriseDate.getMinutes().toString().padStart(2, '0');
+
+  // Convert sunset
+  const sunsetDate = new Date(data.sys.sunset * 1000);
+  const sunsetHours = sunsetDate.getHours().toString().padStart(2, '0');
+  const sunsetMinutes = sunsetDate.getMinutes().toString().padStart(2, '0');
+%>
+
+           <h2>Location</h2>
+            <div class="box">
+              <pre class="Location">Country                    <%= data.sys.country %></pre>
+              
+              <pre class="Location">Name                       <%= data.name %></pre>
+          
+              <pre class="Location">Sun-Rise                   <%=sunriseHours %>:<%= sunriseMinutes %></pre>  
+              <pre class="Location">Sun-set                    <%= sunsetHours %>:<%= sunsetMinutes %></pre>  
+            </div>
+
+       </div>
+    </div>
+  
+
+
+    <script>
+  const weather = document.querySelector(".we").innerText.trim().toLowerCase();
+  console.log(weather);
+  const pic = document.querySelector(".Details");
+
+  if (weather === "clouds") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/158163/clouds-cloudporn-weather-lookup-158163.jpeg')";
+  } 
+  else if (weather === "clear") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/666839/pexels-photo-666839.jpeg')";
+  }
+  else if (weather === "rain") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/110874/pexels-photo-110874.jpeg')";
+  }
+  else if (weather === "drizzle") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/459451/pexels-photo-459451.jpeg')";
+  }
+  else if (weather === "thunderstorm") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/1118869/pexels-photo-1118869.jpeg')";
+  }
+  else if (weather === "snow") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/688660/pexels-photo-688660.jpeg')";
+  }
+  else if (weather === "mist" || weather === "fog" || weather === "haze") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/167699/pexels-photo-167699.jpeg')";
+  }
+  else if (weather === "smoke") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/929385/pexels-photo-929385.jpeg')";
+  }
+  else if (weather === "dust" || weather === "sand") {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/1004665/pexels-photo-1004665.jpeg')";
+  }
+  else {
+    pic.style.backgroundImage =
+      "url('https://images.pexels.com/photos/20363859/pexels-photo-20363859.jpeg')";
+  }
+</script>
+
+</body>
+
+</html>make it more good looking

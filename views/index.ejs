@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Details</title>
+  <style>
+     body{
+        
+        background-color:  rgb(59, 59, 68);
+    }
+
+     .grid{
+        display: grid;
+        grid-template-columns: repeat(2,350px);
+        margin: 150px 0px 0px 450px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+         border-radius: 20px;
+     }
+
+      .grid:hover {
+       transform: scale(1.04);
+       
+      }
+
+
+
+     .img{
+        background-image: url("https://cdn.dribbble.com/userupload/19771863/file/original-f4a2e59776928a2bbe22afa329754cd9.gif");
+         background-size: cover;       
+          background-position: center;   
+        background-repeat: no-repeat; 
+         
+
+     }
+
+    
+
+     .weather{
+       
+        background-color: rgb(149, 118, 118);
+        height: 350px;
+        width: 350px;
+        padding: 25px;
+       
+     }
+
+     
+     #we{
+        text-align: center;
+     }
+
+
+     .form{
+       text-align: left;
+       padding: 30px;
+     }
+
+
+    input {
+      width: 100%;
+      padding: 6px;
+    }
+
+    p {
+      margin: 10px 0 5px;
+    }
+    
+    #button{
+        padding: 10px;
+        margin: 10px;
+    }
+
+  </style>
+</head>
+<body>
+
+
+
+    <div class="grid">
+        
+    <div class="img">
+        
+    </div>
+
+
+  <div class="weather">
+         <h1 id="we">☁️ Weather</h1>
+    <form class="form" method="POST" action="/details/send">
+
+      <p>Latitude</p>
+      <div>
+        <input
+          type="number"
+          name="lat"
+          step="any"
+          placeholder="Latitude"
+          required
+        >
+      </div>
+
+      <p>Longitude</p>
+      <div>
+        <input
+          type="number"
+          name="lon"
+          step="any"
+          placeholder="Longitude"
+          required
+        >
+      </div>
+
+      <div>
+        <input id="button" type="submit" value="Get Weather">
+      </div>
+    </form>
+  </div>
+
+  </div>
+
+
+
+</body>
+</html> 
